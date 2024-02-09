@@ -8,13 +8,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.vedruna.aplication_crud.dto.ProductDto;
 import com.vedruna.aplication_crud.interfaz.CRUD;
 import com.vedruna.aplication_crud.model.Product;
+import com.vedruna.aplication_crud.model.StockType;
 import com.vedruna.aplication_crud.utils.Constants;
 
 import retrofit2.Call;
@@ -31,6 +34,7 @@ public class AddFragment extends Fragment {
 
     EditText editTextPrice;
 
+    Spinner spinnerStock;
 
     Button btnAdd;
 
@@ -59,6 +63,19 @@ public class AddFragment extends Fragment {
         editTextQuantity = rootView.findViewById(R.id.editTextQuantity);
         editTextPrice = rootView.findViewById(R.id.editTextPrice);
 
+        // Inicializar el Spinner
+        spinnerStock = rootView.findViewById(R.id.spinnerStock);
+
+        // Obtener las opciones de stock del archivo de recursos de strings
+        String[] stockOptions = getResources().getStringArray(R.array.stock_options);
+
+        // Crear un adaptador para el spinner con las opciones de stock
+        ArrayAdapter<String> stockAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, stockOptions);
+        stockAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Establecer el adaptador en el spinner
+        spinnerStock.setAdapter(stockAdapter);
+
         // Inicializar el botón
         btnAdd = rootView.findViewById(R.id.btnAdd);
 
@@ -69,6 +86,7 @@ public class AddFragment extends Fragment {
 
                 String name = editTextName.getText().toString();
                 String quantityString = editTextQuantity.getText().toString();
+                String stock = spinnerStock.getSelectedItem().toString();
                 String priceString = editTextPrice.getText().toString();
 
                 if (name.isEmpty() || quantityString.isEmpty() || priceString.isEmpty()) {
@@ -78,7 +96,8 @@ public class AddFragment extends Fragment {
 
                 float quantity = Float.parseFloat(quantityString);
                 float price = Float.parseFloat(priceString);
-                ProductDto dto = new ProductDto(name, quantity, price);
+                StockType stockType = StockType.valueOf(stock.toUpperCase());
+                ProductDto dto = new ProductDto(name, quantity, price, stockType);
                 create(dto);
             }
         });

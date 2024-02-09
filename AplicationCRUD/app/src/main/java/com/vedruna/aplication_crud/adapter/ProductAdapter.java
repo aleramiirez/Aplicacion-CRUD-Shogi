@@ -49,6 +49,8 @@ public class ProductAdapter extends BaseAdapter {
             viewHolder.nameText = convertView.findViewById(R.id.nameText);
             viewHolder.quantityLabel = convertView.findViewById(R.id.quantityLabel);
             viewHolder.quantityText = convertView.findViewById(R.id.quantityText);
+            viewHolder.stockLabel = convertView.findViewById(R.id.stockLabel);
+            viewHolder.stockText = convertView.findViewById(R.id.stockText);
             viewHolder.priceLabel = convertView.findViewById(R.id.priceLabel);
             viewHolder.priceText = convertView.findViewById(R.id.priceText);
 
@@ -65,6 +67,8 @@ public class ProductAdapter extends BaseAdapter {
         viewHolder.nameText.setText(product.getProductName());
         viewHolder.quantityLabel.setText("Quantity: ");
         viewHolder.quantityText.setText(String.valueOf(product.getQuantity()));
+        viewHolder.stockLabel.setText("Stock: : ");
+        viewHolder.stockText.setText(String.valueOf(product.getStock()));
         viewHolder.priceLabel.setText("Price: ");
         viewHolder.priceText.setText(String.valueOf(product.getPrice()));
 
@@ -76,6 +80,8 @@ public class ProductAdapter extends BaseAdapter {
         TextView nameText;
         TextView quantityLabel;
         TextView quantityText;
+        TextView stockLabel;
+        TextView stockText;
         TextView priceLabel;
         TextView priceText;
     }

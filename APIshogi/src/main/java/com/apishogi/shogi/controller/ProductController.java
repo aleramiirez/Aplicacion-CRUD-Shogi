@@ -27,7 +27,8 @@ public class ProductController {
     }
 
     private Product converDtoToProduct (ProductDto productDto) {
-        return new Product(productDto.getProductName(), productDto.getQuantity(), productDto.getPrice());
+        return new Product(productDto.getProductName(), productDto.getQuantity(), productDto.getPrice(),
+                productDto.getStock());
     }
 
     @PostMapping

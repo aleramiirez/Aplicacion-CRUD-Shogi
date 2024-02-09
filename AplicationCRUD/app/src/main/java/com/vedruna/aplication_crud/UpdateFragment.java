@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.vedruna.aplication_crud.dto.ProductDto;
 import com.vedruna.aplication_crud.interfaz.CRUD;
 import com.vedruna.aplication_crud.model.Product;
+import com.vedruna.aplication_crud.model.StockType;
 import com.vedruna.aplication_crud.utils.Constants;
 
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class UpdateFragment extends Fragment {
 
     Spinner spinnerProductName;
     EditText editTextQuantity;
+    Spinner spinnerStock;
     EditText editTextPrice;
     Button btnUpdate;
     private Retrofit retrofit;
@@ -58,6 +60,19 @@ public class UpdateFragment extends Fragment {
         spinnerProductName = rootView.findViewById(R.id.spinnerProductName);
         editTextQuantity = rootView.findViewById(R.id.editTextQuantity);
         editTextPrice = rootView.findViewById(R.id.editTextPrice);
+        // Inicializar el Spinner
+        spinnerStock = rootView.findViewById(R.id.spinnerStock);
+
+        // Obtener las opciones de stock del archivo de recursos de strings
+        String[] stockOptions = getResources().getStringArray(R.array.stock_options);
+
+        // Crear un adaptador para el spinner con las opciones de stock
+        ArrayAdapter<String> stockAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, stockOptions);
+        stockAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Establecer el adaptador en el spinner
+        spinnerStock.setAdapter(stockAdapter);
+
         btnUpdate = rootView.findViewById(R.id.btnUpdate);
 
         retrofit = new Retrofit.Builder().baseUrl(Constants.BASE_URL).
@@ -125,6 +140,7 @@ public class UpdateFragment extends Fragment {
     private void actualizar() {
         String productName = spinnerProductName.getSelectedItem().toString();
         String quantity = editTextQuantity.getText().toString().trim();
+        String stock = spinnerStock.getSelectedItem().toString();
         String price = editTextPrice.getText().toString().trim();
 
         if (quantity.isEmpty() || price.isEmpty()) {
@@ -132,7 +148,8 @@ public class UpdateFragment extends Fragment {
             return;
         }
 
-        ProductDto productDto = new ProductDto(productName, Float.parseFloat(quantity), Float.parseFloat(price));
+        StockType stockType = StockType.valueOf(stock.toUpperCase());
+        ProductDto productDto = new ProductDto(productName, Float.parseFloat(quantity), Float.parseFloat(price), stockType);
         crudInterface = retrofit.create(CRUD.class);
         Call<Product> call = crudInterface.update(productDto, productName);
 

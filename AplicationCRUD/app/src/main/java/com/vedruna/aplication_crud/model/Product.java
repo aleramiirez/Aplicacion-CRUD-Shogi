@@ -13,14 +13,17 @@ public class Product implements Serializable {
 
     private float price;
 
+    private StockType stock;
+
     public Product() {
     }
 
-    public Product(int productID, String productName, float quantity, float price) {
+    public Product(int productID, String productName, float quantity, float price, StockType stock) {
         this.productID = productID;
         this.productName = productName;
         this.quantity = quantity;
         this.price = price;
+        this.stock = stock;
     }
 
     public int getProductID() {
@@ -55,10 +58,18 @@ public class Product implements Serializable {
         this.price = precio;
     }
 
+    public StockType getStock() {
+        return stock;
+    }
+
+    public void setStock(StockType stock) {
+        this.stock = stock;
+    }
 
     @Override
     public String toString() {
-        return "Id: " + getProductID() + ", Name: " + getProductName() + ", Quantity: " + getQuantity() + ", Price: " + getPrice();
+        return "Id: " + getProductID() + ", Name: " + getProductName() + ", Quantity: " + getQuantity() + ", Price: " + getPrice() +
+                ", Stock: " + getStock();
     }
 
 }

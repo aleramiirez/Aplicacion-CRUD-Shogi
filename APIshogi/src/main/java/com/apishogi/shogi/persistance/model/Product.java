@@ -28,10 +28,15 @@ public class Product implements Serializable {
     @Column(name = "C_PRICE")
     private float price;
 
-    public Product(String productName, float quantity, float price) {
+    @Enumerated(EnumType.STRING)
+    @Column(name = "C_STOCK")
+    private StockType stock;
+
+    public Product(String productName, float quantity, float price, StockType stock) {
         this.productName = productName;
         this.quantity = quantity;
         this.price = price;
+        this.stock = stock;
     }
 
 }
