@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "300954667145",
+    "project_id": "aplicacion-crud-android",
+    "storage_bucket": "aplicacion-crud-android.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:300954667145:android:3c9fcc31ae26d0faaede58",
+        "android_client_info": {
+          "package_name": "com.vedruna.aplication_crud"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "300954667145-m6fnkpem5rjkfojq5uki8s9omqe7i6s6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vedruna.aplication_crud",
+            "certificate_hash": "c6e1bbbbbbb0ab49160a88a177d1e6bd38c140c9"
+          }
+        },
+        {
+          "client_id": "300954667145-3859cc59g8r3rtocfl9367rh9i4bi7au.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVPGEc_lcuPkfdstAP0qmlb3Eb-ieJUh0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "300954667145-3859cc59g8r3rtocfl9367rh9i4bi7au.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

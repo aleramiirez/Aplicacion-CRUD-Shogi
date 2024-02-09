@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:title="Inventory"
+        android:iconTint="@color/white"
+        android:icon="@drawable/home_icon" />
+    <item
+        android:id="@+id/navigation_create"
+        android:title="Add"
+        android:iconTint="@color/white"
+        android:icon="@drawable/create_icon" />
+    <item
+        android:id="@+id/navigation_update"
+        android:title="Update"
+        android:iconTint="@color/white"
+        android:icon="@drawable/update_icon" />
+    <item
+        android:id="@+id/navigation_delete"
+        android:title="Delete"
+        android:iconTint="@color/white"
+        android:icon="@drawable/delete_icon" />
+    <item
+        android:id="@+id/navigation_exit"
+        android:title="Exit"
+        android:iconTint="@color/white"
+        android:icon="@drawable/exit_icon" />
+
+</menu>

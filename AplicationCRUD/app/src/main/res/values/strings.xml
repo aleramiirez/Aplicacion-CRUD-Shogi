@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Shogi Store</string>
+    <string name="default_web_client_id">300954667145-3859cc59g8r3rtocfl9367rh9i4bi7au.apps.googleusercontent.com</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
