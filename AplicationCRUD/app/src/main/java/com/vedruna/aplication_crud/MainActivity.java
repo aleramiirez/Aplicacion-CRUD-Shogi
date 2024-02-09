@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -58,10 +60,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showLogoutConfirmationDialog() {
+        // Construir el diálogo de confirmación
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("¿Seguro que quieres salir?");
-        builder.setPositiveButton("Sí", (dialog, which) -> logOut());
-        builder.setNegativeButton("Cancelar", (dialog, which) -> dialog.dismiss());
-        builder.create().show();
+        builder.setTitle("¿Surely you want to go out?");
+
+        // Establecer el texto y el color del botón positivo ("Sí")
+        builder.setPositiveButton("Yes", (dialog, which) -> logOut());
+
+        // Establecer el texto y el color del botón negativo ("Cancelar")
+        builder.setNegativeButton("No", (dialog, which) -> dialog.dismiss());
+
+        // Obtener el color principal
+        int colorMain = getResources().getColor(R.color.main); // Cambia R.color.main por el identificador de tu color principal
+
+        // Crear el diálogo y mostrarlo
+        AlertDialog dialog = builder.create();
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialogInterface) {
+                // Obtener los botones del diálogo
+                Button positiveButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                Button negativeButton = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+
+                // Establecer el color del texto de los botones
+                positiveButton.setTextColor(colorMain);
+                negativeButton.setTextColor(colorMain);
+            }
+        });
+        dialog.show();
     }
 }

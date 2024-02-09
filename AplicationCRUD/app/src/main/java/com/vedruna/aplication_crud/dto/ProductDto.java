@@ -4,7 +4,7 @@ public class ProductDto {
 
     private String productName;
 
-    private int quantity;
+    private float quantity;
 
     private float price;
 
@@ -12,7 +12,7 @@ public class ProductDto {
 
     }
 
-    public ProductDto(String productName, int quantity, float price) {
+    public ProductDto(String productName, float quantity, float price) {
         this.productName = productName;
         this.quantity = quantity;
         this.price = price;
@@ -26,11 +26,11 @@ public class ProductDto {
         this.productName = productName;
     }
 
-    public int getQuantity() {
+    public float getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(float quantity) {
         this.quantity = quantity;
     }
 

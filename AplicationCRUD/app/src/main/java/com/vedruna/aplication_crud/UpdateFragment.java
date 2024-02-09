@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,16 +32,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class UpdateFragment extends Fragment {
 
     Spinner spinnerProductName;
-
     EditText editTextQuantity;
-
     EditText editTextPrice;
-
     Button btnUpdate;
-
     private Retrofit retrofit;
-
     CRUD crudInterface;
+    List<Product> productList;
 
     public UpdateFragment() {
         // Required empty public constructor
@@ -49,30 +46,44 @@ public class UpdateFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflar el diseño del fragmento
+        // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_update, container, false);
 
-        // Inicializar los EditText
+        // Initialize EditTexts
         spinnerProductName = rootView.findViewById(R.id.spinnerProductName);
         editTextQuantity = rootView.findViewById(R.id.editTextQuantity);
         editTextPrice = rootView.findViewById(R.id.editTextPrice);
+        btnUpdate = rootView.findViewById(R.id.btnUpdate);
 
         retrofit = new Retrofit.Builder().baseUrl(Constants.BASE_URL).
                 addConverterFactory(GsonConverterFactory.create()).
                 build();
 
-        // Inicializar el botón
-        btnUpdate = rootView.findViewById(R.id.btnUpdate);
-
         loadProductNames();
 
-        // Puedes agregar un listener al botón si deseas manejar clics
+        // Set listener for the Spinner
+        spinnerProductName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // Update the EditTexts with selected product's quantity and price
+                if (productList != null && productList.size() > position) {
+                    Product selectedProduct = productList.get(position);
+                    editTextQuantity.setText(String.valueOf(selectedProduct.getQuantity()));
+                    editTextPrice.setText(String.valueOf(selectedProduct.getPrice()));
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // Do nothing
+            }
+        });
+
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,46 +95,28 @@ public class UpdateFragment extends Fragment {
     }
 
     private void loadProductNames() {
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        // Crear una instancia de tu interfaz CRUD
         crudInterface = retrofit.create(CRUD.class);
-
-        // Hacer la llamada para obtener los productos disponibles desde tu API
         Call<List<Product>> call = crudInterface.getAll();
 
         call.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 if (response.isSuccessful()) {
-                    // Obtener la lista de productos desde la respuesta
-                    List<Product> products = response.body();
-
-                    // Crear una lista para almacenar los nombres de los productos
+                    productList = response.body();
                     List<String> productNames = new ArrayList<>();
-
-                    // Iterar sobre la lista de productos para extraer los nombres
-                    for (Product product : products) {
+                    for (Product product : productList) {
                         productNames.add(product.getProductName());
                     }
-
-                    // Configurar el adaptador del Spinner con los nombres de productos
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(requireActivity(), android.R.layout.simple_spinner_item, productNames);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinnerProductName.setAdapter(adapter);
                 } else {
-                    // Manejar el caso de respuesta no exitosa
                     Toast.makeText(getActivity(), "Error loading products", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
-                // Manejar el caso de falla en la llamada
                 Toast.makeText(getActivity(), "Error in obtaining the products", Toast.LENGTH_SHORT).show();
             }
         });
@@ -139,12 +132,8 @@ public class UpdateFragment extends Fragment {
             return;
         }
 
-        // Crear un objeto ProductDTO en lugar de Product
-        ProductDto productDto = new ProductDto(productName, Integer.parseInt(quantity), Float.parseFloat(price));
-
+        ProductDto productDto = new ProductDto(productName, Float.parseFloat(quantity), Float.parseFloat(price));
         crudInterface = retrofit.create(CRUD.class);
-
-        // Llamar al método actualizar con el DTO y el poductName
         Call<Product> call = crudInterface.update(productDto, productName);
 
         call.enqueue(new Callback<Product>() {
@@ -155,9 +144,7 @@ public class UpdateFragment extends Fragment {
                     return;
                 }
                 Product product = response.body();
-                // Hacer algo con el producto actualizado si es necesario
                 mostrarToast("Updated product: " + product.getProductName());
-
             }
 
             @Override
@@ -168,7 +155,6 @@ public class UpdateFragment extends Fragment {
         });
     }
 
-    // Método para mostrar un Toast
     private void mostrarToast(String mensaje) {
         Toast.makeText(getActivity(), mensaje, Toast.LENGTH_SHORT).show();
     }

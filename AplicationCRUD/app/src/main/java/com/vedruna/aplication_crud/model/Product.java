@@ -9,14 +9,14 @@ public class Product implements Serializable {
 
     private String productName;
 
-    private int quantity;
+    private float quantity;
 
     private float price;
 
     public Product() {
     }
 
-    public Product(int productID, String productName, int quantity, float price) {
+    public Product(int productID, String productName, float quantity, float price) {
         this.productID = productID;
         this.productName = productName;
         this.quantity = quantity;
@@ -39,11 +39,11 @@ public class Product implements Serializable {
         this.productName = nombre;
     }
 
-    public int getQuantity() {
+    public float getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(float quantity) {
         this.quantity = quantity;
     }
 

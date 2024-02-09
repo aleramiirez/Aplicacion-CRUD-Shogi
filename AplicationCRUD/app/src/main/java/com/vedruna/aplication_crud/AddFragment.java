@@ -76,7 +76,7 @@ public class AddFragment extends Fragment {
                     return;
                 }
 
-                int quantity = Integer.parseInt(quantityString);
+                float quantity = Float.parseFloat(quantityString);
                 float price = Float.parseFloat(priceString);
                 ProductDto dto = new ProductDto(name, quantity, price);
                 create(dto);

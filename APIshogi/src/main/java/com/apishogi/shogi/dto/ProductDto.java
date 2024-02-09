@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class ProductDto {
 
     private String productName;
-    private int quantity;
+    private float quantity;
     private float price;
 
 }

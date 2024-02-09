@@ -23,12 +23,12 @@ public class Product implements Serializable {
     private String productName;
 
     @Column(name = "C_QUANTITY")
-    private int quantity;
+    private float quantity;
 
     @Column(name = "C_PRICE")
     private float price;
 
-    public Product(String productName, int quantity, float price) {
+    public Product(String productName, float quantity, float price) {
         this.productName = productName;
         this.quantity = quantity;
         this.price = price;

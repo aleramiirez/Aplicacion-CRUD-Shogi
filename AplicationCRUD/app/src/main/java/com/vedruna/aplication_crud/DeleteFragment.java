@@ -1,9 +1,13 @@
 package com.vedruna.aplication_crud;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -116,18 +120,50 @@ public class DeleteFragment extends Fragment {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                String productName = spinnerProductName.getSelectedItem().toString();
-
-                if (!productName.isEmpty()) {
-                    delete(productName);
-                } else {
-                    // Manejar el caso en el que el ID esté vacío
-                    // Puedes mostrar un mensaje de error o realizar otras acciones
-                    Log.e("Error", "El productName no puede estar vacío");
-                }
+                showConfirmationDialog(spinnerProductName.getSelectedItem().toString());
             }
         });
+    }
+
+    private void showConfirmationDialog(String productName) {
+        // Crear el mensaje de confirmación con SpannableString para cambiar el color del texto
+        SpannableString message = new SpannableString("¿You are sure you want to delete the product:  " + productName + "?");
+
+        // Aplicar el color deseado a las partes relevantes del texto
+        int colorMain = getResources().getColor(R.color.main); // Cambia R.color.main por el identificador de tu color principal
+
+        // Construir el diálogo de confirmación
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setMessage(message)
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Acción a realizar si el usuario hace clic en "Sí"
+                        delete(productName);
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Acción a realizar si el usuario hace clic en "No"
+                        dialog.cancel();
+                    }
+                });
+
+        // Establecer el tema personalizado para cambiar el color del texto del botón
+        AlertDialog alert = builder.create();
+        alert.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                Button positiveButton = alert.getButton(DialogInterface.BUTTON_POSITIVE);
+                positiveButton.setTextColor(colorMain);
+
+                Button negativeButton = alert.getButton(DialogInterface.BUTTON_NEGATIVE);
+                negativeButton.setTextColor(colorMain);
+            }
+        });
+
+        // Mostrar el diálogo
+        alert.show();
     }
 
     private void delete(String productName) {
