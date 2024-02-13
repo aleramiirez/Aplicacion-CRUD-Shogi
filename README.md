@@ -22,7 +22,7 @@ El proyecto sigue la Arquitectura de Componentes de Android, haciendo uso de las
 
 ## Pantalla de Login
 
-<img src="https://github.com/aleramiirez/Aplicacion-CRUD-Shogi/assets/121113496/546220c4-266b-421e-9aea-673ceb468df5" alt="IMG-20240213-WA0013" width="300" height="500">
+<img src="https://github.com/aleramiirez/Aplicacion-CRUD-Shogi/assets/121113496/b656fd47-16fd-465c-adab-0f443928c6be" width="300" height="500">
 
 ### activity_login.xml
 
@@ -46,6 +46,8 @@ Finalmente, el método `goHome()` redirige al usuario a la pantalla principal de
 
 ## Pantalla Principal
 
+
+
 ### activity_main.xml
 
 Este archivo XML define la interfaz de usuario para la actividad principal (`MainActivity`). Contiene un contenedor de fragmentos (`FragmentContainerView`) que aloja la navegación entre fragmentos utilizando la biblioteca de navegación de Android. También incluye una `BottomNavigationView` para la navegación entre las diferentes secciones de la aplicación.
@@ -61,6 +63,8 @@ El método `logOut()` se encarga de cerrar la sesión del usuario actual utiliza
 El método `showLogoutConfirmationDialog()` muestra un cuadro de diálogo de confirmación cuando el usuario intenta cerrar sesión. El diálogo tiene botones "Yes" y "No", con el texto en color principal.
 
 ## Pantalla del inventario
+
+<img src="https://github.com/aleramiirez/Aplicacion-CRUD-Shogi/assets/121113496/b882e2d9-49d8-4843-978f-e0fcb8606f23" alt="IMG-20240213-WA0013" alt="IMG-20240213-WA0013" width="300" height="500">
 
 ### fragment_inventory.xml
 
@@ -80,6 +84,8 @@ Este fragmento muestra la lista de productos en el inventario de la aplicación 
 
 ## Pantalla para crear productos
 
+<img src="https://github.com/aleramiirez/Aplicacion-CRUD-Shogi/assets/121113496/546220c4-266b-421e-9aea-673ceb468df5" alt="IMG-20240213-WA0013" width="300" height="500">
+
 ### fragment_add.xml
 
 Este archivo XML define la interfaz de usuario para el fragmento de agregar (`AddFragment`). Contiene un `FrameLayout` como contenedor principal y un `LinearLayout` dentro de él para organizar los elementos de la interfaz de usuario de manera vertical y centrada.
@@ -97,6 +103,9 @@ El método `create()` utiliza Retrofit para realizar una solicitud POST al servi
 Este fragmento permite al usuario agregar nuevos productos a la base de datos de la aplicación CRUD y maneja la comunicación con el servidor para enviar los datos del producto.
 
 ## Pantalla para actualizar productos
+
+<img src="https://github.com/aleramiirez/Aplicacion-CRUD-Shogi/assets/121113496/f166a375-901d-4e9e-a88c-8b849bbc1ba2" alt="IMG-20240213-WA0013" width="300" height="500">
+
 
 ### fragment_update.xml
 
@@ -117,6 +126,8 @@ El método `actualizar()` utiliza Retrofit para enviar los datos actualizados de
 Este fragmento permite al usuario actualizar la información de productos existentes en la base de datos de la aplicación CRUD y maneja la comunicación con el servidor para enviar los datos actualizados del producto.
 
 ## Pantalla para borrar productos
+
+<img src="https://github.com/aleramiirez/Aplicacion-CRUD-Shogi/assets/121113496/12b28bd9-4963-4f19-9a86-19513b48e402" alt="IMG-20240213-WA0013" alt="IMG-20240213-WA0013" width="300" height="500">
 
 ### fragment_delete.xml
 
