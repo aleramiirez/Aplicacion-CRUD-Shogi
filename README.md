@@ -18,6 +18,126 @@ Este proyecto es una aplicación Android para llevar a cabo operaciones CRUD (Cr
 
 El proyecto sigue la Arquitectura de Componentes de Android, haciendo uso de las bibliotecas Navigation, LiveData y ViewModel. Esto proporciona una estructura robusta y escalable para el desarrollo de la aplicación, facilitando la navegación entre fragmentos, la gestión de datos en tiempo real y la separación clara de la lógica de la interfaz de usuario.
 
+## Pantallas Principales
+
+## Pantalla de Login
+
+### activity_login.xml
+
+Este archivo XML define la interfaz de usuario para la actividad de inicio de sesión (`LoginActivity`). Contiene varios elementos de IU, como un campo de texto para el nombre de usuario, un campo de texto para la contraseña, un botón de inicio de sesión y un botón de inicio de sesión con Google.
+
+El diseño utiliza un `LinearLayout` como contenedor principal y un `CardView` para agrupar los elementos de IU relacionados con el inicio de sesión. El fondo del `LinearLayout` se establece utilizando el archivo `loginbkg.xml`.
+
+### LoginActivity.java
+
+Esta clase Java (`LoginActivity`) corresponde a la actividad de inicio de sesión de la aplicación. Maneja la lógica de autenticación del usuario utilizando Firebase Authentication y Google Sign-In.
+
+En `onCreate()`, se inicializan los elementos de IU y se configuran los listeners para los botones de inicio de sesión y Google Sign-In. También se establece una instancia de Firebase Authentication y se crea un cliente de inicio de sesión de Google.
+
+El método `signIn()` se llama cuando el usuario hace clic en el botón de inicio de sesión con Google, iniciando el flujo de autenticación de Google.
+
+El método `firebaseAuthWithGoogle()` se llama cuando se completa el flujo de inicio de sesión con Google. Autentica al usuario en Firebase utilizando el token de ID proporcionado por Google.
+
+El método `updateUI()` actualiza la interfaz de usuario según el estado de inicio de sesión del usuario.
+
+Finalmente, el método `goHome()` redirige al usuario a la pantalla principal de la aplicación después de iniciar sesión correctamente.
+
+## Pantalla Principal
+
+### activity_main.xml
+
+Este archivo XML define la interfaz de usuario para la actividad principal (`MainActivity`). Contiene un contenedor de fragmentos (`FragmentContainerView`) que aloja la navegación entre fragmentos utilizando la biblioteca de navegación de Android. También incluye una `BottomNavigationView` para la navegación entre las diferentes secciones de la aplicación.
+
+### MainActivity.java
+
+Esta clase Java (`MainActivity`) corresponde a la actividad principal de la aplicación. Se encarga de configurar la navegación entre fragmentos utilizando la biblioteca de navegación y controlar las acciones del usuario en la `BottomNavigationView`.
+
+En `onCreate()`, se configura la `BottomNavigationView` para manejar la navegación entre los fragmentos de la aplicación. Se utiliza un `NavHostFragment` para alojar los fragmentos y un `NavController` para gestionar la navegación.
+
+El método `logOut()` se encarga de cerrar la sesión del usuario actual utilizando Firebase Authentication y redirige al usuario a la pantalla de inicio de sesión (`LoginActivity`).
+
+El método `showLogoutConfirmationDialog()` muestra un cuadro de diálogo de confirmación cuando el usuario intenta cerrar sesión. El diálogo tiene botones "Yes" y "No", con el texto en color principal.
+
+## Pantalla del inventario
+
+### fragment_inventory.xml
+
+Este archivo XML define la interfaz de usuario para el fragmento de inventario (`InventoryFragment`). Contiene un `FrameLayout` como contenedor principal y un `ConstraintLayout` dentro de él para organizar los elementos de la interfaz de usuario.
+
+En este diseño, hay un título de "Shogi Inventory" representado por un `TextView`, seguido de una `ListView` que muestra una lista de productos. El fondo de la pantalla está configurado con un fondo de gradiente.
+
+### InventoryFragment.java
+
+Esta clase Java (`InventoryFragment`) corresponde al fragmento de inventario de la aplicación. Se encarga de obtener los datos de los productos del servidor a través de una solicitud HTTP utilizando Retrofit, y luego muestra los productos en una `ListView`.
+
+En el método `onCreateView()`, se infla el diseño del fragmento y se inicializa la `ListView` para mostrar los productos.
+
+El método `getAll()` utiliza Retrofit para realizar una solicitud GET al servidor y recuperar la lista de productos. Cuando se completa la solicitud, los productos se muestran en la `ListView` utilizando un adaptador personalizado (`ProductAdapter`).
+
+Este fragmento muestra la lista de productos en el inventario de la aplicación y maneja la comunicación con el servidor para obtener los datos necesarios.
+
+## Pantalla para crear productos
+
+### fragment_add.xml
+
+Este archivo XML define la interfaz de usuario para el fragmento de agregar (`AddFragment`). Contiene un `FrameLayout` como contenedor principal y un `LinearLayout` dentro de él para organizar los elementos de la interfaz de usuario de manera vertical y centrada.
+
+En este diseño, se proporcionan campos para que el usuario ingrese el nombre, la cantidad, el tipo de stock y el precio de un producto. Los campos de nombre y cantidad son campos de texto (`EditText`), mientras que el tipo de stock se selecciona a través de un `Spinner`. También hay un botón para agregar el producto.
+
+### AddFragment.java
+
+Esta clase Java (`AddFragment`) corresponde al fragmento de agregar de la aplicación. Se encarga de permitir al usuario agregar nuevos productos mediante la introducción de datos en los campos proporcionados y luego enviando esos datos al servidor.
+
+En el método `onCreateView()`, se infla el diseño del fragmento y se inicializan los campos de texto (`EditText`) y el `Spinner` para que el usuario pueda ingresar los datos del producto. También se configura un `Button` para manejar la acción de agregar un producto nuevo.
+
+El método `create()` utiliza Retrofit para realizar una solicitud POST al servidor con los datos del producto proporcionados por el usuario. Una vez que se completa la solicitud, se muestra un mensaje al usuario indicando si el producto se agregó correctamente o no.
+
+Este fragmento permite al usuario agregar nuevos productos a la base de datos de la aplicación CRUD y maneja la comunicación con el servidor para enviar los datos del producto.
+
+## Pantalla para actualizar productos
+
+### fragment_update.xml
+
+Este archivo XML define la interfaz de usuario para el fragmento de actualización (`UpdateFragment`). Contiene un `FrameLayout` como contenedor principal y un `LinearLayout` dentro de él para organizar los elementos de la interfaz de usuario de manera vertical y centrada.
+
+En este diseño, se proporcionan campos para que el usuario seleccione un producto de una lista desplegable (`Spinner`) y actualice su cantidad, tipo de stock y precio. Los campos de cantidad y precio son campos de texto (`EditText`), mientras que el tipo de stock se selecciona a través de otro `Spinner`. También hay un botón para actualizar el producto.
+
+### UpdateFragment.java
+
+Esta clase Java (`UpdateFragment`) corresponde al fragmento de actualización de la aplicación. Se encarga de permitir al usuario seleccionar un producto existente y actualizar su información, como la cantidad, el tipo de stock y el precio.
+
+En el método `onCreateView()`, se infla el diseño del fragmento y se inicializan los campos de texto (`EditText`) y los `Spinner` para que el usuario pueda seleccionar un producto y actualizar su información. También se configura un botón para manejar la acción de actualizar el producto seleccionado.
+
+El método `loadProductNames()` utiliza Retrofit para cargar la lista de nombres de productos desde el servidor y llenar el `Spinner` con estos nombres. Cuando se selecciona un producto en el `Spinner`, los campos de texto se actualizan automáticamente con la cantidad y el precio del producto seleccionado.
+
+El método `actualizar()` utiliza Retrofit para enviar los datos actualizados del producto al servidor y actualizarlos en la base de datos. Una vez que se completa la solicitud, se muestra un mensaje al usuario indicando si la actualización fue exitosa o no.
+
+Este fragmento permite al usuario actualizar la información de productos existentes en la base de datos de la aplicación CRUD y maneja la comunicación con el servidor para enviar los datos actualizados del producto.
+
+## Pantalla para borrar productos
+
+### fragment_delete.xml
+
+Este archivo XML define la interfaz de usuario para el fragmento de eliminación (`DeleteFragment`). Contiene un `FrameLayout` como contenedor principal y un `LinearLayout` dentro de él para organizar los elementos de la interfaz de usuario de manera vertical y centrada.
+
+En este diseño, se proporciona un `Spinner` para que el usuario seleccione un producto a eliminar de una lista de productos disponibles y un botón para realizar la acción de eliminar.
+
+### DeleteFragment.java
+
+Esta clase Java (`DeleteFragment`) corresponde al fragmento de eliminación de la aplicación. Se encarga de permitir al usuario seleccionar un producto existente y eliminarlo de la base de datos.
+
+En el método `onCreateView()`, se infla el diseño del fragmento y se inicializa el `Spinner` para que el usuario pueda seleccionar un producto a eliminar. También se configura el botón de eliminación para manejar la acción de eliminación.
+
+El método `loadProductNames()` utiliza Retrofit para cargar la lista de nombres de productos desde el servidor y llenar el `Spinner` con estos nombres. Cuando se selecciona un producto en el `Spinner`, se muestra un cuadro de diálogo de confirmación para asegurarse de que el usuario realmente desea eliminar el producto seleccionado.
+
+El método `setupDeleteButton()` configura el botón de eliminación para mostrar el cuadro de diálogo de confirmación cuando se hace clic en él.
+
+El método `showConfirmationDialog()` muestra un cuadro de diálogo de confirmación personalizado para asegurarse de que el usuario realmente desea eliminar el producto seleccionado.
+
+El método `delete()` utiliza Retrofit para enviar una solicitud de eliminación al servidor y eliminar el producto seleccionado de la base de datos. Una vez que se completa la solicitud, se muestra un mensaje al usuario indicando si la eliminación fue exitosa o no.
+
+Este fragmento permite al usuario eliminar productos existentes de la base de datos de la aplicación CRUD y maneja la comunicación con el servidor para realizar la eliminación.
+
 ## Dependencias del Proyecto
 
 Para compilar y ejecutar el proyecto, se utilizan las siguientes dependencias:
