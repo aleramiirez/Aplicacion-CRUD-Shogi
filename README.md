@@ -22,7 +22,7 @@ El proyecto sigue la Arquitectura de Componentes de Android, haciendo uso de las
 
 ## Pantalla de Login
 
-![IMG-20240213-WA0013](https://github.com/aleramiirez/Aplicacion-CRUD-Shogi/assets/121113496/546220c4-266b-421e-9aea-673ceb468df5)
+<img src="https://github.com/aleramiirez/Aplicacion-CRUD-Shogi/assets/121113496/546220c4-266b-421e-9aea-673ceb468df5" alt="IMG-20240213-WA0013" width="300" height="500">
 
 ### activity_login.xml
 
