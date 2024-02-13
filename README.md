@@ -22,6 +22,8 @@ El proyecto sigue la Arquitectura de Componentes de Android, haciendo uso de las
 
 ## Pantalla de Login
 
+![IMG-20240213-WA0013](https://github.com/aleramiirez/Aplicacion-CRUD-Shogi/assets/121113496/546220c4-266b-421e-9aea-673ceb468df5)
+
 ### activity_login.xml
 
 Este archivo XML define la interfaz de usuario para la actividad de inicio de sesión (`LoginActivity`). Contiene varios elementos de IU, como un campo de texto para el nombre de usuario, un campo de texto para la contraseña, un botón de inicio de sesión y un botón de inicio de sesión con Google.
