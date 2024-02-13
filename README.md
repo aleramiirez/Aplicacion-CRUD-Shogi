@@ -197,4 +197,4 @@ También necesitarás descargar la API:
 
 ## Uso y contribuciones
 
-Si deseas utilizar esta aplicación como base para tu propio proyecto, siéntete libre de hacerlo. También puedes contribuir con nuevas características, mejoras o correcciones de errores mediante pull requests. Acuerdate de modificar en la API el ``application.propperties`` para ajustar tus preferencias en cuanto la BBDD.
+Si deseas utilizar esta aplicación como base para tu propio proyecto, siéntete libre de hacerlo. También puedes contribuir con nuevas características, mejoras o correcciones de errores mediante pull requests. Acuerdate de modificar en la APIShogi el ``application.propperties`` para ajustar tus preferencias en cuanto la BBDD. En Aplicacion Crud, dentro de la carpeta ``utils`` esta la clase ``constants``, recuerda poner tu dirección IP, puedes conseguirla abriendo el cmd y escribiendo el comando ``ipconfig``, hay tendrás tu ipv4.
