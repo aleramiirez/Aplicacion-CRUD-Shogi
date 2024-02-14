@@ -66,7 +66,9 @@ public class DeleteFragment extends Fragment {
         return view;
     }
 
-    // En tu método loadProductNames() dentro de DeleteFragment.java
+    /**
+     * Carga los nombres de los productos disponibles en el Spinner.
+     */
     private void loadProductNames() {
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -92,7 +94,7 @@ public class DeleteFragment extends Fragment {
 
                     // Iterar sobre la lista de productos para extraer los nombres
                     for (Product product : products) {
-                        productNames.add(product.getProductName());
+                        productNames.add(product.getProductName().toUpperCase());
                     }
 
                     // Configurar el adaptador del Spinner con los nombres de productos
@@ -101,19 +103,22 @@ public class DeleteFragment extends Fragment {
                     spinnerProductName.setAdapter(adapter);
                 } else {
                     // Manejar el caso de respuesta no exitosa
-                    Toast.makeText(getActivity(), "Error al cargar los productos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Error loading products", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
                 // Manejar el caso de falla en la llamada
-                Log.e("Error", "Error al obtener productos: " + t.getMessage());
-                Toast.makeText(getActivity(), "Error al obtener productos", Toast.LENGTH_SHORT).show();
+                Log.e("Error", "Error in obtaining products: " + t.getMessage());
+                Toast.makeText(getActivity(), "Error in obtaining products", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+    /**
+     * Configura el botón de borrado con el listener del clic.
+     */
     private void setupDeleteButton(View view) {
         btnDelete = view.findViewById(R.id.btnDelete);
 
@@ -125,6 +130,11 @@ public class DeleteFragment extends Fragment {
         });
     }
 
+    /**
+     * Muestra un diálogo de confirmación para preguntar al usuario si está seguro de eliminar el producto seleccionado.
+     *
+     * @param productName El nombre del producto que se va a eliminar.
+     */
     private void showConfirmationDialog(String productName) {
         // Crear el mensaje de confirmación con SpannableString para cambiar el color del texto
         SpannableString message = new SpannableString("¿You are sure you want to delete the product:  " + productName + "?");
@@ -166,6 +176,11 @@ public class DeleteFragment extends Fragment {
         alert.show();
     }
 
+    /**
+     * Elimina el producto seleccionado de la base de datos.
+     *
+     * @param productName El nombre del producto que se va a eliminar.
+     */
     private void delete(String productName) {
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -196,6 +211,12 @@ public class DeleteFragment extends Fragment {
             }
         });
     }
+
+    /**
+     * Muestra un toast en la pantalla.
+     *
+     * @param mensaje El mensaje que quieres que se muestre en el toast.
+     */
     private void mostrarToast(String mensaje) {
         Toast.makeText(getActivity(), mensaje, Toast.LENGTH_SHORT).show();
     }

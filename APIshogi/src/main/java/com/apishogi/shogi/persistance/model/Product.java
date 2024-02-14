@@ -32,11 +32,15 @@ public class Product implements Serializable {
     @Column(name = "C_STOCK")
     private StockType stock;
 
-    public Product(String productName, float quantity, float price, StockType stock) {
+    @Column(name = "T_PRODUCT_IMAGE")
+    private String imageURL;
+
+    public Product(String productName, float quantity, float price, StockType stock, String imageURL) {
         this.productName = productName;
         this.quantity = quantity;
         this.price = price;
         this.stock = stock;
+        this.imageURL = imageURL;
     }
 
 }

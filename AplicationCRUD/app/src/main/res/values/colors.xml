@@ -3,5 +3,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="black">#000000</color>
     <color name="main">#6EA28B</color>
+    <color name="mainText">#9EC6B4</color>
     <color name="red">#B81414</color>
+    <color name="card">#3B6150</color>
 </resources>

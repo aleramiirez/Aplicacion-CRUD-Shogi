@@ -26,18 +26,30 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * Fragmento para agregar un nuevo producto a la base de datos.
+ */
 public class AddFragment extends Fragment {
 
+    // Campo de texto para el nombre del producto
     EditText editTextName;
 
+    // Campo de texto para la cantidad del producto
     EditText editTextQuantity;
 
+    // Campo de texto para el precio del producto
     EditText editTextPrice;
 
+    // Spinner para seleccionar el tipo de stock del producto
     Spinner spinnerStock;
 
+    // Campo de texto para la URL de la imagen del producto
+    EditText editTextImageURL;
+
+    // Botón para crear un nuevo producto
     Button btnAdd;
 
+    // Interfaz CRUD para comunicarse con la API
     CRUD crudInterface;
 
     public AddFragment() {
@@ -62,6 +74,7 @@ public class AddFragment extends Fragment {
         editTextName = rootView.findViewById(R.id.editTextName);
         editTextQuantity = rootView.findViewById(R.id.editTextQuantity);
         editTextPrice = rootView.findViewById(R.id.editTextPrice);
+        editTextImageURL = rootView.findViewById(R.id.editTextImageURL);
 
         // Inicializar el Spinner
         spinnerStock = rootView.findViewById(R.id.spinnerStock);
@@ -84,10 +97,11 @@ public class AddFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                String name = editTextName.getText().toString();
+                String name = editTextName.getText().toString().toUpperCase();
                 String quantityString = editTextQuantity.getText().toString();
                 String stock = spinnerStock.getSelectedItem().toString();
                 String priceString = editTextPrice.getText().toString();
+                String imageURL = editTextImageURL.getText().toString();
 
                 if (name.isEmpty() || quantityString.isEmpty() || priceString.isEmpty()) {
                     mostrarToast("Please complete all fields.");
@@ -97,7 +111,7 @@ public class AddFragment extends Fragment {
                 float quantity = Float.parseFloat(quantityString);
                 float price = Float.parseFloat(priceString);
                 StockType stockType = StockType.valueOf(stock.toUpperCase());
-                ProductDto dto = new ProductDto(name, quantity, price, stockType);
+                ProductDto dto = new ProductDto(name, quantity, price, stockType, imageURL);
                 create(dto);
             }
         });
@@ -105,13 +119,18 @@ public class AddFragment extends Fragment {
         return rootView;
     }
 
-    private void create(ProductDto dto){
+    /**
+     * Crear un nuevo producto en la API.
+     *
+     * @param productDto El objeto ProductDto que contiene la nueva información del producto.
+     */
+    private void create(ProductDto productDto){
         Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.BASE_URL).
                 addConverterFactory(GsonConverterFactory.create()).
                 build();
 
         crudInterface= retrofit.create(CRUD.class);
-        Call<Product> call = crudInterface.create(dto);
+        Call<Product> call = crudInterface.create(productDto);
 
         call.enqueue(new Callback<Product>() {
             @Override
@@ -134,6 +153,12 @@ public class AddFragment extends Fragment {
         });
 
     }
+
+    /**
+     * Muestra un toast en la pantalla.
+     *
+     * @param mensaje El mensaje que quieres que se muestre en el toast.
+     */
     private void mostrarToast(String mensaje) {
         Toast.makeText(getActivity(), mensaje, Toast.LENGTH_SHORT).show();
     }

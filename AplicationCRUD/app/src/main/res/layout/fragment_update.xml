@@ -95,6 +95,28 @@
             android:inputType="numberDecimal"
             android:minHeight="48dp" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="Image URL:"
+            android:textSize="18sp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"/>
+
+        <EditText
+            android:id="@+id/editTextImageURL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter the new image url"
+            android:background="@drawable/custom_eddittext"
+            android:drawableLeft="@drawable/image_icon"
+            android:drawablePadding="8dp"
+            android:padding="8dp"
+            android:textColor="@color/black"
+            android:inputType="text"
+            android:minHeight="48dp" />
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

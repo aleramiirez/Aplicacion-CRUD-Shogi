@@ -22,6 +22,7 @@ import com.vedruna.aplication_crud.model.StockType;
 import com.vedruna.aplication_crud.utils.Constants;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -30,15 +31,26 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * Fragmento para actualizar un producto a la base de datos.
+ */
 public class UpdateFragment extends Fragment {
 
+    // Elementos de la interfaz gráfica
     Spinner spinnerProductName;
     EditText editTextQuantity;
     Spinner spinnerStock;
     EditText editTextPrice;
+    EditText editTextImageURL;
     Button btnUpdate;
+
+    // Elementos de la interfaz gráfica
     private Retrofit retrofit;
+
+    // Interfaz para acceder a los métodos CRUD de la API
     CRUD crudInterface;
+
+    // Lista de productos obtenida de la API
     List<Product> productList;
 
     public UpdateFragment() {
@@ -53,14 +65,14 @@ public class UpdateFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        // Infla la vista del fragmento
         View rootView = inflater.inflate(R.layout.fragment_update, container, false);
 
-        // Initialize EditTexts
+        // Inicializa los elementos de la interfaz gráfica
         spinnerProductName = rootView.findViewById(R.id.spinnerProductName);
         editTextQuantity = rootView.findViewById(R.id.editTextQuantity);
         editTextPrice = rootView.findViewById(R.id.editTextPrice);
-        // Inicializar el Spinner
+        editTextImageURL = rootView.findViewById(R.id.editTextImageURL);
         spinnerStock = rootView.findViewById(R.id.spinnerStock);
 
         // Obtener las opciones de stock del archivo de recursos de strings
@@ -75,21 +87,25 @@ public class UpdateFragment extends Fragment {
 
         btnUpdate = rootView.findViewById(R.id.btnUpdate);
 
+        // Crea una instancia de Retrofit con la URL base y el convertidor Gson
         retrofit = new Retrofit.Builder().baseUrl(Constants.BASE_URL).
                 addConverterFactory(GsonConverterFactory.create()).
                 build();
 
+        // Carga los nombres de los productos en el spinner
         loadProductNames();
 
-        // Set listener for the Spinner
+        // Establece un listener para el spinner de nombres de productos
         spinnerProductName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                // Update the EditTexts with selected product's quantity and price
+                // Actualiza los EditTexts con la cantidad, el precio y la url de la imagen del producto seleccionado
                 if (productList != null && productList.size() > position) {
                     Product selectedProduct = productList.get(position);
                     editTextQuantity.setText(String.valueOf(selectedProduct.getQuantity()));
                     editTextPrice.setText(String.valueOf(selectedProduct.getPrice()));
+
+                    editTextImageURL.setText(selectedProduct.getImageURL());
                 }
             }
 
@@ -99,6 +115,7 @@ public class UpdateFragment extends Fragment {
             }
         });
 
+        // Establece un listener para el botón de actualizar
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,6 +126,9 @@ public class UpdateFragment extends Fragment {
         return rootView;
     }
 
+    /**
+     * Carga los nombres de los productos de la API y los muestra en el spinner.
+     */
     private void loadProductNames() {
         crudInterface = retrofit.create(CRUD.class);
         Call<List<Product>> call = crudInterface.getAll();
@@ -120,7 +140,7 @@ public class UpdateFragment extends Fragment {
                     productList = response.body();
                     List<String> productNames = new ArrayList<>();
                     for (Product product : productList) {
-                        productNames.add(product.getProductName());
+                        productNames.add(product.getProductName().toUpperCase());
                     }
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(requireActivity(), android.R.layout.simple_spinner_item, productNames);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -137,19 +157,23 @@ public class UpdateFragment extends Fragment {
         });
     }
 
+    /**
+     * Actualiza un producto en la API.
+     */
     private void actualizar() {
         String productName = spinnerProductName.getSelectedItem().toString();
         String quantity = editTextQuantity.getText().toString().trim();
         String stock = spinnerStock.getSelectedItem().toString();
         String price = editTextPrice.getText().toString().trim();
+        String imageURL = editTextImageURL.getText().toString().trim();
 
-        if (quantity.isEmpty() || price.isEmpty()) {
+        if (quantity.isEmpty() || price.isEmpty() || imageURL.isEmpty()) {
             mostrarToast("Please complete all fields.");
             return;
         }
 
         StockType stockType = StockType.valueOf(stock.toUpperCase());
-        ProductDto productDto = new ProductDto(productName, Float.parseFloat(quantity), Float.parseFloat(price), stockType);
+        ProductDto productDto = new ProductDto(productName, Float.parseFloat(quantity), Float.parseFloat(price), stockType, imageURL);
         crudInterface = retrofit.create(CRUD.class);
         Call<Product> call = crudInterface.update(productDto, productName);
 

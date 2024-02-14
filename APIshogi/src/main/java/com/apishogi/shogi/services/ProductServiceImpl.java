@@ -22,7 +22,7 @@ public class ProductServiceImpl implements ProductServiceI{
 
         for (Product product: products) {
             ProductDto productDto = new ProductDto(product.getProductName(), product.getQuantity(),
-                    product.getPrice(), product.getStock());
+                    product.getPrice(), product.getStock(), product.getImageURL());
 
             productsDto.add(productDto);
         }
@@ -34,7 +34,7 @@ public class ProductServiceImpl implements ProductServiceI{
     public ProductDto getProductByName(String productName) {
         Product product = productRepo.findByProductName(productName);
         ProductDto productDto = new ProductDto(product.getProductName(), product.getQuantity(),
-                product.getPrice(), product.getStock());
+                product.getPrice(), product.getStock(), product.getImageURL());
         return productDto;
     }
 
@@ -51,6 +51,7 @@ public class ProductServiceImpl implements ProductServiceI{
         productUpdate.setQuantity(product.getQuantity());
         productUpdate.setStock(product.getStock());
         productUpdate.setPrice(product.getPrice());
+        productUpdate.setImageURL(product.getImageURL());
 
         return productRepo.save(productUpdate);
     }

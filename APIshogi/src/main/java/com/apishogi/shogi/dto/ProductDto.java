@@ -17,5 +17,6 @@ public class ProductDto {
     private float quantity;
     private float price;
     private StockType stock;
+    private String imageURL;
 
 }

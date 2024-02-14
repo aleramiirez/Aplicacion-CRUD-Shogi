@@ -49,5 +49,5 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation(platform("com.google.firebase:firebase-bom:32.7.1"))
     implementation("com.google.firebase:firebase-analytics")
-
+    implementation ("com.squareup.picasso:picasso:2.8")
 }
