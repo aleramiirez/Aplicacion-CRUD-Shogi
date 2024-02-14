@@ -22,7 +22,7 @@ El proyecto sigue la Arquitectura de Componentes de Android, haciendo uso de las
 
 ## Pantalla de Login
 
-<img src="https://github.com/aleramiirez/Aplicacion-CRUD-Shogi/assets/121113496/b656fd47-16fd-465c-adab-0f443928c6be" width="300" height="500">
+<img src="https://github.com/aleramiirez/Aplicacion-CRUD-Shogi/assets/121113496/ac0ca87a-1462-4605-975c-c517e34c9768" width="300" height="550">
 
 ### activity_login.xml
 
@@ -64,7 +64,7 @@ El método `showLogoutConfirmationDialog()` muestra un cuadro de diálogo de con
 
 ## Pantalla del inventario
 
-<img src="https://github.com/aleramiirez/Aplicacion-CRUD-Shogi/assets/121113496/b882e2d9-49d8-4843-978f-e0fcb8606f23" alt="IMG-20240213-WA0013" alt="IMG-20240213-WA0013" width="300" height="500">
+<img src="https://github.com/aleramiirez/Aplicacion-CRUD-Shogi/assets/121113496/8710cec5-4478-43be-885b-bc84912427ab" alt="IMG-20240213-WA0013" alt="IMG-20240213-WA0013" width="300" height="550">
 
 ### fragment_inventory.xml
 
@@ -84,7 +84,7 @@ Este fragmento muestra la lista de productos en el inventario de la aplicación 
 
 ## Pantalla para crear productos
 
-<img src="https://github.com/aleramiirez/Aplicacion-CRUD-Shogi/assets/121113496/546220c4-266b-421e-9aea-673ceb468df5" alt="IMG-20240213-WA0013" width="300" height="500">
+<img src="https://github.com/aleramiirez/Aplicacion-CRUD-Shogi/assets/121113496/f5a872fe-5fa5-4203-9463-e90f0d8c2748" alt="IMG-20240213-WA0013" width="300" height="550">
 
 ### fragment_add.xml
 
@@ -104,8 +104,7 @@ Este fragmento permite al usuario agregar nuevos productos a la base de datos de
 
 ## Pantalla para actualizar productos
 
-<img src="https://github.com/aleramiirez/Aplicacion-CRUD-Shogi/assets/121113496/f166a375-901d-4e9e-a88c-8b849bbc1ba2" alt="IMG-20240213-WA0013" width="300" height="500">
-
+<img src="https://github.com/aleramiirez/Aplicacion-CRUD-Shogi/assets/121113496/e252e97a-b10c-4224-b70b-8b84904dfb09" alt="IMG-20240213-WA0013" width="300" height="550">
 
 ### fragment_update.xml
 
@@ -127,7 +126,7 @@ Este fragmento permite al usuario actualizar la información de productos existe
 
 ## Pantalla para borrar productos
 
-<img src="https://github.com/aleramiirez/Aplicacion-CRUD-Shogi/assets/121113496/12b28bd9-4963-4f19-9a86-19513b48e402" alt="IMG-20240213-WA0013" alt="IMG-20240213-WA0013" width="300" height="500">
+<img src="https://github.com/aleramiirez/Aplicacion-CRUD-Shogi/assets/121113496/3c689132-6e0c-40d4-8c4a-4486261c783e" alt="IMG-20240213-WA0013" width="300" height="550">
 
 ### fragment_delete.xml
 
